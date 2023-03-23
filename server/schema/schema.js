@@ -9,6 +9,7 @@ const {
   GraphQLSchema,
   GraphQLList,
   GraphQLBoolean,
+  GraphQLNonNull,
 } = require("graphql");
 
 // Todo type
@@ -68,6 +69,85 @@ const RootQuery = new GraphQLObjectType({
   },
 });
 
+// Mutations
+const mutation = new GraphQLObjectType({
+  name: "Mutation",
+  fields: {
+    // Create user
+    addUser: {
+      type: UserType,
+      args: {
+        firstname: { type: GraphQLNonNull(GraphQLString) },
+      },
+      resolve(parent, args) {
+        const user = new User({
+          firstname: args.firstname,
+        });
+        return user.save();
+      },
+    },
+    // Delete user
+    deleteUser: {
+      type: UserType,
+      args: {
+        id: { type: GraphQLNonNull(GraphQLID) },
+      },
+      resolve(parent, args) {
+        return User.findByIdAndRemove(args.id);
+      },
+    },
+    // Add a to do
+    addTodo: {
+      type: TodoType,
+      args: {
+        task: { type: GraphQLNonNull(GraphQLString) },
+        done: { type: GraphQLNonNull(GraphQLBoolean), defaultValue: false },
+        user_id: { type: GraphQLNonNull(GraphQLID) },
+      },
+      resolve(parent, args) {
+        const todo = new Todo({
+          task: args.task,
+          done: args.done,
+          user_id: args.user_id,
+        });
+        return todo.save();
+      },
+    },
+    // Delete a to do
+    deleteTodo: {
+      type: TodoType,
+      args: {
+        id: { type: GraphQLNonNull(GraphQLID) },
+      },
+      resolve(parent, args) {
+        return Todo.findByIdAndRemove(args.id);
+      },
+    },
+    // Update a to do
+    updateTodo: {
+      type: TodoType,
+      args: {
+        task: { type: GraphQLString },
+        done: { type: GraphQLBoolean },
+        id: { type: GraphQLNonNull(GraphQLID) },
+      },
+      resolve(parent, args) {
+        return Todo.findByIdAndUpdate(
+          args.id,
+          {
+            $set: {
+              task: args.task,
+              done: args.done,
+            },
+          },
+          { new: true }
+        );
+      },
+    },
+  },
+});
+
 module.exports = new GraphQLSchema({
   query: RootQuery,
+  mutation,
 });
