@@ -1,4 +1,4 @@
-import { Todos, NavBar, TopBar } from "../components";
+import { Todos, NavBar, TopBar, Pagination } from "../components";
 
 export const Incomplete = () => {
   return (
@@ -7,6 +7,7 @@ export const Incomplete = () => {
       <div className="flex flex-col w-full bg-gray-100">
         <TopBar />
         <Todos />
+        <Pagination />
       </div>
     </div>
   );

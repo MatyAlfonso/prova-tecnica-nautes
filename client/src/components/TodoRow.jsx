@@ -18,10 +18,13 @@ export const TodoRow = ({ todo }) => {
 
   return (
     <tr className="rounded even:bg-gray-100 odd:bg-white-100">
-      <td className='p-4 font-medium text-[15px]'>{todo.task}</td>
-      <td className='p-4 font-medium text-[15px]'>{todo.user.firstname}</td>
-      <td className='p-4'>
-        <button className="bg-gray-700 py-2 px-10 text-white-200 rounded" onClick={onClick}>
+      <td className="p-4 font-medium text-[15px]">{todo.task}</td>
+      <td className="p-4 font-medium text-[15px]">{todo.user.firstname}</td>
+      <td className="p-4 text-end">
+        <button
+          className="bg-gray-700 py-2 px-10 text-white-200 rounded"
+          onClick={onClick}
+        >
           svolgi
         </button>
       </td>

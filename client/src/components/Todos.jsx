@@ -1,4 +1,4 @@
-import { AddTodo, TodoRow, Spinner, Filter } from "./index";
+import { AddTodo, TodoRow, Spinner, Filter, ArrowsSVG } from "./index";
 import { useQuery } from "@apollo/client";
 import { GET_TODOS } from "../queries/todoQueries";
 
@@ -15,9 +15,19 @@ export const Todos = () => {
         <table className="table-fixed rounded">
           <thead className="bg-red-100 rounded text-white-100 h-[55px]">
             <tr>
-              <th className="font-medium text-left p-4">Attività</th>
-              <th className="font-medium text-left p-4">Operatore</th>
-              <th></th>
+              <th className="font-medium text-left p-4 w-2/12">
+                <div className='flex items-center'>
+                <p className="pr-6">Attività</p>
+                <ArrowsSVG />
+                </div>
+              </th>
+              <th className="font-medium text-left p-4 w-2/12">
+                <div className="flex items-center">
+                  <p className="pr-6">Operatore</p>
+                  <ArrowsSVG />
+                </div>
+              </th>
+              <th className="w-8/12"></th>
             </tr>
           </thead>
           <tbody>
