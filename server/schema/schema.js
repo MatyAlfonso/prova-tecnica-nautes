@@ -37,6 +37,7 @@ const UserType = new GraphQLObjectType({
   }),
 });
 
+// GET all users, only one user, all todos, only one todo
 const RootQuery = new GraphQLObjectType({
   name: "RootQueryType",
   fields: {
